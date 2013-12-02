@@ -2,6 +2,7 @@
 import random
 from king_downloader.utils import ProxyProvider, ProxyProvideResult
 import requests
+from king_crawl.config import settings
 
 __author__ = 'patrickz'
 
@@ -15,8 +16,9 @@ class CustomProxyProvider(ProxyProvider):
         if rd > getattr(self,'proxy_rate', 0.9)*10:
             return None
         else:
-            resp = requests.get('http://localhost:3000/api/v1/proxies?fail_allow=3')
-            d = resp.json()
+            proxy_url = settings.PROXY_SERVICES_BASE_URL
+            resp = requests.get(proxy_url+'/api/v1/proxies/get_one')
+            d = resp.json()['data']
             _r = ProxyProvideResult(d['id'],'http://'+str(d['address'])+':'+str(d['port']))
             return _r
 
@@ -25,4 +27,4 @@ class CustomProxyProvider(ProxyProvider):
             r = 1
         else:
             r = -1
-        requests.post('http://localhost:3000/api/v1/proxies/'+str(proxy.id)+"?status="+str(r))
+        requests.post(settings.PROXY_SERVICES_BASE_URL+'/api/v1/proxies/'+str(proxy.id)+'/rate',data={'result':str(r)})
