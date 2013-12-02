@@ -25,11 +25,11 @@ env.logger = logging.getLogger(settings.CELERY_NAME)
 
 
 # Database
-env.mysql_engine = create_engine(settings.SQLALCHEMY_INFO, echo=True)
-
-env.DbBase = declarative_base()
-env.DbBase.metadata.reflect(env.mysql_engine)
-env.DbSession = sessionmaker(bind=env.mysql_engine)
+#env.mysql_engine = create_engine(settings.SQLALCHEMY_INFO, echo=True)
+#
+#env.DbBase = declarative_base()
+#env.DbBase.metadata.reflect(env.mysql_engine)
+#env.DbSession = sessionmaker(bind=env.mysql_engine)
 
 
 # Redis
