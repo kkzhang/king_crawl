@@ -35,6 +35,7 @@ ENGINE_MAX_FAIL = -1
 ENGINE_REQUEST_INTERVAL = 3
 PROXY_PROVIDER = ['king_crawl.utils.proxy_provider','CustomProxyProvider']
 PROXY_SERVICES_BASE_URL = 'http://localhost:5000'
+PROXY_SERVICES_AUTHKEY = 'cBfLoyfH58psFx'
 REQUEST_MAX_FAIL = 3
 REDIS_REQUESTS_QUEUE = 'usearch_requests'
 

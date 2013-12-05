@@ -17,7 +17,7 @@ class CustomProxyProvider(ProxyProvider):
             return None
         else:
             proxy_url = settings.PROXY_SERVICES_BASE_URL
-            resp = requests.get(proxy_url+'/api/v1/proxies/get_one')
+            resp = requests.get(proxy_url+'/api/v1/proxies/get_one?key='+settings.PROXY_SERVICES_AUTHKEY)
             d = resp.json()['data']
             _r = ProxyProvideResult(d['id'],'http://'+str(d['address'])+':'+str(d['port']))
             return _r
@@ -27,4 +27,4 @@ class CustomProxyProvider(ProxyProvider):
             r = 1
         else:
             r = -1
-        requests.post(settings.PROXY_SERVICES_BASE_URL+'/api/v1/proxies/'+str(proxy.id)+'/rate',data={'result':str(r)})
+        requests.post(settings.PROXY_SERVICES_BASE_URL+'/api/v1/proxies/'+str(proxy.id)+'/rate?key='+settings.PROXY_SERVICES_AUTHKEY,data={'result':str(r)})
