@@ -77,6 +77,11 @@ LOGGING = {
             'level': 'DEBUG',
             'propagate': True,
         },
+        'king_crawl': {
+            'handlers': ['console','sentry'],
+            'level': 'INFO',
+            'propagate': False,
+        },
         'celery_scraper2': {
             'handlers': ['console'],
             'level': 'INFO',

@@ -3,6 +3,7 @@ import random
 from king_downloader.utils import ProxyProvider, ProxyProvideResult
 import requests
 from king_crawl.config import settings
+from king_crawl.utils.utils import retriable_exec
 
 __author__ = 'patrickz'
 
@@ -11,6 +12,7 @@ class CustomProxyProvider(ProxyProvider):
         if 'noproxy_rate' in kwargs:
             self.proxy_rate = kwargs['proxy_rate']
 
+    @retriable_exec()
     def provide(self):
         rd = random.randint(1,10)
         if rd > getattr(self,'proxy_rate', 0.9)*10:
