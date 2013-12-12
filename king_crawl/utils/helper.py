@@ -35,7 +35,7 @@ def worker(name=None, *args, **kwargs):
             full_name = settings.TASKNAME_PREFIX +func.__name__
         else:
             full_name = settings.TASKNAME_PREFIX + name
-        @env.celery.task(name=full_name, *args, **kwargs)
+        @env.app.task(name=full_name, *args, **kwargs)
         def _w(*actual_args, **actual_kwargs):
             try:
                 return func(worker_name = full_name,*actual_args, **actual_kwargs)
@@ -117,4 +117,4 @@ def run_worker(worker=None, c_args=None, c_kwargs=None, queue=None, *args, **kwa
         worker.apply_async(c_args,c_kwargs, queue=queue, *args, **kwargs)
     else:
         worker = settings.TASKNAME_PREFIX + worker
-        env.celery.send_task(worker,c_args,c_kwargs, queue=queue, *args, **kwargs)
+        env.app.send_task(worker,c_args,c_kwargs, queue=queue, *args, **kwargs)

@@ -18,11 +18,15 @@ for f in glob.glob(os.path.dirname(workers.__file__)+"/*.py"):
 
 
 
-celery = Celery(settings.CELERY_NAME,
+app = Celery(settings.CELERY_NAME,
                 broker=settings.CELERY_BROKER,
                 backend=settings.CELERY_BACKEND,
                 include=_workers
                 )
+
+for s in settings.__dict__:
+    if s.startswith('CELERY_SETTINGS_'):
+        app.conf.update({s[16:]:getattr(settings,s)})
 
 app_status = 1 # 1 for normal, 0 for shutdown
 

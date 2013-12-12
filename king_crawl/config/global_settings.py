@@ -13,6 +13,8 @@ CELERY_BACKEND = 'amqp://guest@localhost//'
 TASKNAME_PREFIX = 'tasks'
 
 
+#CELERY_SETTINGS_CELERY_TIMEZONE='UTC'
+
 # Database
 
 SQLALCHEMY_INFO = "mysql+oursql://root:123456@127.0.0.1/fiction_fetcher"
