@@ -10,7 +10,8 @@ from king_crawl.utils.proxy_provider import CustomProxyProvider
 import king_crawl.config.environment as env
 import king_crawl.core.initialize
 
-logger = logging.getLogger(settings.CELERY_NAME+'.engine')
+# logger = logging.getLogger(settings.CELERY_NAME+'.engine')
+logger = env.logger
 
 if settings.CUSTOM_DOWNLOADER == False:
     request_engine = RequestEngine(pool_size=settings.ENGINE_REQUEST_CONCURRENCY,
