@@ -56,9 +56,7 @@ def add_request(*args, **kwargs):
         if hasattr(kwargs,'extra'):
             req.raw_info.update(kwargs['extra'])
 
-        print 'in add_request, before push'
         env.request_queue.push(req)
-        print 'in add_request, after push'
     else:
         if args and type(args[0]) == str:
             kwargs['url'] = args[0]
@@ -86,7 +84,6 @@ def reschedule_request(request, callback=None, *args, **kwargs):
         _retry = retry+1
         env.logger.error("Rescheduling Request (%s)"% _retry, extra={'data':request.raw_info.copy()})
         add_request(request, extra={'_retry': _retry})
-        print 'after add'
     if callback: callback(retry,request)
 
 def regis(func=None, key=None, value=None, uid=None, expire=600):
