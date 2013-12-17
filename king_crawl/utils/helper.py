@@ -53,6 +53,8 @@ def worker(name=None, *args, **kwargs):
 def add_request(*args, **kwargs):
     if args and hasattr(args[0],'to_msgpack'):
         req = args[0]
+        if hasattr(kwargs,'extra'):
+            req.raw_info.update(kwargs['extra'])
         env.request_queue.push(req)
     else:
         if args and type(args[0]) == str:
@@ -80,7 +82,7 @@ def reschedule_request(request, callback=None, *args, **kwargs):
     else:
         _retry = retry+1
         env.logger.error("Rescheduling Request (%s)"% _retry, extra={'data':request.raw_info.copy()})
-        add_request(request, raw_info={'_retry': _retry})
+        add_request(request, extra={'_retry': _retry})
     if callback: callback(retry,request)
 
 def regis(func=None, key=None, value=None, uid=None, expire=600):
