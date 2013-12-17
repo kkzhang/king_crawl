@@ -79,7 +79,7 @@ def reschedule_request(request, callback=None, *args, **kwargs):
         env.logger.error("Fail to re-schedule request: Reached Max Times", extra={'data':request.raw_info})
     else:
         _retry = retry+1
-        env.logger.error("Rescheduling Request (%s)"% _retry, extra={'data':request.raw_info})
+        env.logger.error("Rescheduling Request (%s)"% _retry, extra={'data':request.raw_info.copy()})
         add_request(request, raw_info={'_retry': _retry})
     if callback: callback(retry,request)
 
