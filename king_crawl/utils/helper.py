@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 from king_downloader.core import RequestItem
 from kombu import uuid
-import pytz
 from king_crawl.config import settings
 
 import king_crawl.config.environment as env
@@ -11,7 +10,7 @@ __author__ = 'patrickz'
 def processor(name=None):
 
     def _wrapper(func):
-        print "Registering Processor %s" % name
+        env.logger.info("Registering Processor %s" % name)
 
         def _w(*args, **kwargs):
             try:

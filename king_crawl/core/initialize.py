@@ -32,15 +32,22 @@ env.redis_ins = Redis(**settings.REDIS_CFG)
 env.request_queue = RedisRequestQueue()
 env.request_queue.setup_by_redis_instance(env.redis_ins, settings.REDIS_REQUESTS_QUEUE)
 
+# Outline settings
 
+_cfg_outline = '\nSettings Outline:\n-----------------------\n'
+for s in settings.__dict__:
+    if s==s.upper():
+        _cfg_outline +=  ('['+s+"] " + str(getattr(settings,s)) +'\n')
 
-@worker('engine')
-def start_engine(*args, **kwargs):
-    env.downloader.request()
+env.logger.info(_cfg_outline)
 
-
-def init_engine():
-    start_engine.apply_async(queue=settings.ENGINE_QUEUE)
+# @worker('engine')
+# def start_engine(*args, **kwargs):
+#     env.downloader.request()
+#
+#
+# def init_engine():
+#     start_engine.apply_async(queue=settings.ENGINE_QUEUE)
 
 def shutdown_app():
     env.app_status=0
