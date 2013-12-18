@@ -16,6 +16,7 @@ logger = env.logger
 if settings.CUSTOM_DOWNLOADER == False:
     request_engine = RequestEngine(pool_size=settings.ENGINE_REQUEST_CONCURRENCY,
                                        max_empty_retry=-1,
+                                       each_size_from_queue=settings.ENGINE_FETCH_QUANTITY,
                                        request_interval=settings.ENGINE_REQUEST_INTERVAL,
                                        max_failure_allowed=settings.ENGINE_MAX_FAIL,
                                        request_timeout=settings.ENGINE_DEFAULT_TIMEOUT)
